@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortcode Application Form</title>
+</head>
+<body>
+
+<h2>Apply Shortcodes</h2>
+
+<label for="numParagraphs">Number of Paragraphs:</label>
+<input type="number" id="numParagraphs" min="1" max="10">
+<button onclick="generateTextFields()">Generate Text Boxes</button>
+
+<form id="shortcodeForm">
+    <div id="textFields"></div>
+
+    <label for="startShortcode">Start Shortcode:</label>
+    <input type="text" id="startShortcode" placeholder="Enter start shortcode">
+
+    <label for="endShortcode">End Shortcode:</label>
+    <input type="text" id="endShortcode" placeholder="Enter end shortcode">
+
+    <button type="button" onclick="applyShortcodes()">Apply Shortcodes</button>
+</form>
+
+<script>
+function generateTextFields() {
+    var numParagraphs = document.getElementById("numParagraphs").value;
+    var textFieldsDiv = document.getElementById("textFields");
+    textFieldsDiv.innerHTML = "";
+
+    for (var i = 0; i < numParagraphs; i++) {
+        textFieldsDiv.innerHTML += "<textarea id='text" + i + "' placeholder='Enter text for paragraph " + (i + 1) + "'></textarea><br>";
+    }
+}
+
+function applyShortcodes() {
+    var startShortcode = document.getElementById("startShortcode").value;
+    var endShortcode = document.getElementById("endShortcode").value;
+
+    var textFields = document.querySelectorAll("textarea");
+    var formattedText = "";
+
+    textFields.forEach(function(textField) {
+        formattedText += startShortcode + textField.value + endShortcode + "\n\n";
+    });
+
+    alert("Shortcodes applied successfully. You can now copy and paste the formatted text into WordPress.");
+    console.log(formattedText);
+}
+</script>
+
+</body>
+</html>
